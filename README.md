@@ -96,11 +96,12 @@ DB_HOST=db
 DATABASE_URL=postgres://user:password@db:5432/finanztracker_db
 ```
 3. **Run the application using Docker Compose:**
+```bash
 docker-compose up --build
-
+```
 4. **Access the application:**
-Frontend (React app): http://localhost:3000
-Backend API: http://localhost:4000
+- Frontend (React app): http://localhost:3000
+- Backend API: http://localhost:4000
 
 ## **Directory Breakdown**
 ### **Backend**
@@ -116,13 +117,13 @@ Backend API: http://localhost:4000
   - api.js: Axios configuration for making API requests.
   - styles/: CSS files for styling the frontend components.
 ## **How to Use**
-**Register:** Users must register an account to start tracking their finances.
-**Add Transactions:** Input daily transactions and assign them to categories or budgets.
-**Set Budgets:** Define monthly budgets and track them against actual spending.
-**Track Goals:** Define savings goals and track progress.
-**View Dashboard:** See your overall financial health with visual charts and summaries.
+  - **Register:** Users must register an account to start tracking their finances.
+  - **Add Transactions:** Input daily transactions and assign them to categories or budgets.
+  - **Set Budgets:** Define monthly budgets and track them against actual spending.
+  - **Track Goals:** Define savings goals and track progress.
+  - **View Dashboard:** See your overall financial health with visual charts and summaries.
 ## **Development**
-Running Locally Without Docker
+  Running Locally Without Docker
 Backend:
 ```bash
 cd backend
@@ -137,13 +138,13 @@ npm start
 ```
 Database: Make sure to run a PostgreSQL instance locally or use Docker.
 
-Contributing
+## **Contributing**
 Contributions are welcome! Please follow these steps:
 
-Fork the repository.
-Create a feature branch: git checkout -b feature-name.
-Commit your changes: git commit -m 'Add some feature'.
-Push to the branch: git push origin feature-name.
-Open a pull request.
+  - Fork the repository.
+  - Create a feature branch: git checkout -b feature-name.
+  - Commit your changes: git commit -m 'Add some feature'.
+  - Push to the branch: git push origin feature-name.
+  - Open a pull request.
 ## **License**
 This project is licensed under the ISC License.
