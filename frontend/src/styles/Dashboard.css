@@ -1,0 +1,180 @@
+/* Dashboard.css */
+
+/* Hauptcontainer der Dashboard-Seite */
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+}
+
+/* Container für alle Dashboard-Inhalte */
+.dashboard-container {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Titel des Dashboards */
+.dashboard-title {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+/* Steuerungselemente wie Buttons */
+.dashboard-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* Buttons im Dashboard */
+.save-dashboard-button,
+.add-widget-button {
+  background-color: #1abc9c;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-dashboard-button:hover,
+.add-widget-button:hover {
+  background-color: #16a085;
+}
+
+/* Grid-Layout des Dashboards */
+.dashboard-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+
+/* Jeder Widget-Container im Grid */
+.dashboard-widget {
+  padding: 10px;
+}
+
+/* Stil für die einzelnen Widgets */
+.widget-box {
+  background-color: #ffffff;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  padding: 20px;
+  height: 100%;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Titel innerhalb jedes Widgets */
+.widget-title {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Entfernen-Button innerhalb jedes Widgets */
+.remove-widget-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 100;
+}
+
+.remove-widget-button:hover {
+  background-color: #c0392b;
+}
+
+/* Fehlermeldungen */
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Ladeanzeige */
+.loading {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .dashboard-container {
+    padding: 15px;
+  }
+
+  .dashboard-title {
+    font-size: 2rem;
+  }
+
+  .widget-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-controls {
+    flex-direction: column;
+  }
+
+  .save-dashboard-button,
+  .add-widget-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .widget-title {
+    font-size: 1.1rem;
+  }
+
+  .remove-widget-button {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+}
+/* Hover-Effekte für Widgets */
+.widget-box:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Smooth Transition für die Widgets */
+.widget-box {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Fade-In Effekt beim Laden der Widgets */
+.dashboard-widget {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,63 @@
+/* goalList.css */
+
+.goal-list-container {
+  flex: 2;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.goal-list-title {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.goal-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.goal-list-item {
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.goal-list-item:last-child {
+  border-bottom: none;
+}
+
+.goal-item-text {
+  color: #34495e;
+}
+
+.delete-button {
+  color: #e74c3c;
+}
+
+.delete-button:hover {
+  color: #c0392b;
+}
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+/* Scrollbar Styling (optional) */
+.goal-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.goal-list::-webkit-scrollbar-track {
+  background: #ecf0f1;
+  border-radius: 4px;
+}
+
+.goal-list::-webkit-scrollbar-thumb {
+  background: #bdc3c7;
+  border-radius: 4px;
+}
+
+.goal-list::-webkit-scrollbar-thumb:hover {
+  background: #95a5a6;
+}

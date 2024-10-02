@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import "../styles/HomePage.css";
 
 function HomePage() {
   const [email, setEmail] = useState("");
@@ -33,29 +34,31 @@ function HomePage() {
   };
 
   return (
-    <div>
-      <h1>Willkommen zu Ihrem Finanztracker</h1>
-      <form onSubmit={handleLoginSubmit}>
-        <h2>Anmelden</h2>
-        <input
-          type="email"
-          placeholder="E-Mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Passwort"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Anmelden</button>
-      </form>
-      <p>
-        Noch keinen Account? <Link to="/register">Registrieren</Link>
-      </p>
+    <div className="homepage">
+      <h1>Welcome to Your Finance Tracker</h1>
+      <div className="form-container">
+        <form onSubmit={handleLoginSubmit}>
+          <h2>Sign in</h2>
+          <input
+            type="email"
+            placeholder="E-Mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">Sign in</button>
+        </form>
+        <p>
+          Don't have an account yet? <Link to="/register">Sign Up</Link>
+        </p>
+      </div>
     </div>
   );
 }

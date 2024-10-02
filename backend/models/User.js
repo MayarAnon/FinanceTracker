@@ -1,22 +1,38 @@
-const pool = require("../db");
-const bcrypt = require("bcrypt");
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-class User {
-  static async create(email, password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await pool.query(
-      "INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email",
-      [email, hashedPassword]
-    );
-    return result.rows[0];
-  }
-
-  static async findByEmail(email) {
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
-    return result.rows[0];
+class User extends Model {
+  static associate(models) {
+    User.hasMany(models.Transaction, { foreignKey: "user_id" });
+    User.hasMany(models.Budget, { foreignKey: "user_id" });
+    User.hasMany(models.Goal, { foreignKey: "user_id" });
   }
 }
+
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: true,
+    },
+    password_hash: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: "User",
+    tableName: "users",
+    timestamps: true,
+    underscored: true,
+  }
+);
 
 module.exports = User;

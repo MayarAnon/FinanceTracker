@@ -1,21 +1,59 @@
-const pool = require("../db");
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-class Transaction {
-  static async create(userId, amount, category, date, description, type) {
-    const result = await pool.query(
-      "INSERT INTO transactions (user_id, amount, category, date, description, type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [userId, amount, category, date, description, type]
-    );
-    return result.rows[0];
-  }
+class Transaction extends Model {}
 
-  static async findByUserId(userId) {
-    const result = await pool.query(
-      "SELECT * FROM transactions WHERE user_id = $1",
-      [userId]
-    );
-    return result.rows;
+Transaction.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    fixed_cost_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    amount: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    budget_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    goal_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    type: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: "Transaction",
+    tableName: "transactions",
+    timestamps: true,
+    underscored: true,
   }
-}
+);
 
 module.exports = Transaction;
