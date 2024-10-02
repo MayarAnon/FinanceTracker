@@ -81,13 +81,20 @@ The platform includes:
    ```
 
 2. **Create a .env file in the FinanceTracker directory:**
-
-POSTGRES_USER=user
-POSTGRES_PASSWORD=password
-POSTGRES_DB=finanztracker_db
-JWT_SECRET=your-secret-key
+```env
+# Backend
+NODE_ENV=development
 REDIS_HOST=redis
-
+JWT_SECRET=YourJWTToken
+# Frontend
+REACT_APP_BACKEND_URL=http://localhost:4000
+# Datenbank
+DB_USERNAME=user
+DB_PASSWORD=password
+DB_NAME=finanztracker_db
+DB_HOST=db
+DATABASE_URL=postgres://user:password@db:5432/finanztracker_db
+```
 3. **Run the application using Docker Compose:**
 docker-compose up --build
 
