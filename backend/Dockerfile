@@ -1,7 +1,9 @@
 # Backend Dockerfile
-FROM node:16
+FROM node:20
 
 WORKDIR /app
+#Installiere PostgreSQL Client Tools für pg_isready
+RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package.json
 COPY package-lock.json package-lock.json
@@ -16,4 +18,4 @@ COPY . .
 EXPOSE 4000
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "start" ]

@@ -1,16 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
-# Exit immediately if a command exits with a non-zero status.
-set -e
-
+# Warte auf die PostgreSQL-Datenbank
 echo "Waiting for PostgreSQL to start..."
-# Add a small delay or a proper wait-for-it script if db is not ready immediately
-sleep 5
+while ! pg_isready -h db -p 5432 > /dev/null 2>&1; do
+  sleep 1
+done
+echo "PostgreSQL started."
 
+# Führe Datenbankmigrationen aus
 echo "Running database migrations..."
+# Stelle sicher, dass npm install ausgeführt wurde (im Dockerfile)
+# Verwende npx, um sequelize-cli aus node_modules/.bin auszuführen
 npx sequelize-cli db:migrate
 
-echo "Migrations completed."
-
-echo "Starting the application..."
+# Starte die Hauptanwendung
 exec "$@"

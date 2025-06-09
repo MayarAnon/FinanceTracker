@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "../styles/HomePage.css";
-
+import api from "../api"
 function HomePage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,13 +18,10 @@ function HomePage() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+      });
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userEmail", response.data.user.email);
       navigate("/dashboard");
