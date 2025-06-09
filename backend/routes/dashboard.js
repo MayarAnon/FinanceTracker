@@ -211,6 +211,27 @@ router.get("/", authenticateToken, async (req, res) => {
       }
     });
 
+    // Gesamtvermögen (Net Worth) berechnen
+    const totalIncomeResult = await Transaction.findOne({
+      where: {
+        user_id: userId,
+        type: "income",
+      },
+      attributes: [[Sequelize.fn("SUM", Sequelize.col("amount")), "total"]],
+      raw: true,
+    });
+    const totalIncome = parseFloat(totalIncomeResult?.total) || 0;
+
+    const totalExpensesResult = await Transaction.findOne({
+      where: {
+        user_id: userId,
+        type: "expense",
+      },
+      attributes: [[Sequelize.fn("SUM", Sequelize.col("amount")), "total"]],
+      raw: true,
+    });
+    const totalExpenses = parseFloat(totalExpensesResult?.total) || 0;
+    const netWorth = totalIncome - totalExpenses;
     res.json({
       incomeExpenseTransactions,
       balanceTransactions,
@@ -221,6 +242,7 @@ router.get("/", authenticateToken, async (req, res) => {
       goalProgress,
       fixedCosts,
       totalMonthlyFixedCosts,
+      netWorth, // Gesamtvermögen hinzufügen
       currentMonth: currentMonth + 1,
     });
   } catch (error) {

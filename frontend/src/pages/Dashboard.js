@@ -8,6 +8,7 @@ import BudgetsOverview from "../components/BudgetsOverview";
 import FixedCostsSummary from "../components/FixedCostsSummary";
 import ExpensesByBudget from "../components/ExpensesByBudget";
 import BalanceChart from "../components/BalanceChart";
+import NetWorthWidget from "../components/NetWorthWidget";
 import { Button, Menu, MenuItem, Box, Typography } from "@mui/material";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -29,6 +30,7 @@ function Dashboard() {
   const [goalProgress, setGoalProgress] = useState([]);
   const [totalMonthlyFixedCosts, setTotalMonthlyFixedCosts] = useState(0);
   const [currentMonth, setCurrentMonth] = useState(0);
+  const [netWorth, setNetWorth] = useState(0); // State für Gesamtvermögen
   const [layout, setLayout] = useState([
     { i: "incomeExpenseChart", x: 0, y: 0, w: 6, h: 12 },
     { i: "goalsProgress", x: 6, y: 13, w: 6, h: 7 },
@@ -36,6 +38,7 @@ function Dashboard() {
     { i: "fixedCostsSummary", x: 6, y: 20, w: 6, h: 3 },
     { i: "expensesByBudget", x: 0, y: 18, w: 6, h: 10 },
     { i: "balanceChart", x: 6, y: 0, w: 6, h: 12 },
+    { i: "netWorthWidget", x: 0, y: 28, w: 3, h: 5 },
   ]);
   const [incomeExpenseTimeframe, setIncomeExpenseTimeframe] = useState("6");
   const [balanceTimeframe, setBalanceTimeframe] = useState("12");
@@ -52,8 +55,7 @@ function Dashboard() {
     { key: "fixedCostsSummary", name: "Monthly Fixed Costs" },
     { key: "expensesByBudget", name: "Expenses by Budget" },
     { key: "balanceChart", name: "Balance (Profit/Loss)" },
-
-    // Hier weitere Widgets hinzufügen
+    { key: "netWorthWidget", name: "Net Worth" },
   ]);
 
   const [widgets, setWidgets] = useState([
@@ -63,6 +65,7 @@ function Dashboard() {
     "fixedCostsSummary",
     "expensesByBudget",
     "balanceChart",
+    "netWorthWidget",
   ]);
   // Menü zum Hinzufügen von Widgets
   const [anchorEl, setAnchorEl] = useState(null);
@@ -97,6 +100,7 @@ function Dashboard() {
       setGoalProgress(response.data.goalProgress);
       setTotalMonthlyFixedCosts(response.data.totalMonthlyFixedCosts);
       setCurrentMonth(response.data.currentMonth);
+      setNetWorth(response.data.netWorth);
     } catch (error) {
       console.error("Error retrieving the dashboard data", error);
     }
@@ -448,7 +452,39 @@ function Dashboard() {
               </Box>
             </div>
           )}
-          {/* Weitere Widgets hier hinzufügen */}
+
+          {widgets.includes("netWorthWidget") && (
+            <div key="netWorthWidget">
+              <Box
+                sx={{
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  padding: 2,
+                  position: "relative",
+                  height: "100%",
+                  boxSizing: "border-box",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  className="widget-drag-handle"
+                  sx={{ cursor: "move" }}
+                ></Typography>
+                <NetWorthWidget netWorth={netWorth} />
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  size="small"
+                  className="no-drag"
+                  onClick={() => handleRemoveWidget("netWorthWidget")}
+                  sx={{ position: "absolute", top: 8, right: 8 }}
+                >
+                  Remove
+                </Button>
+              </Box>
+            </div>
+          )}
         </ResponsiveGridLayout>
       </Box>
     </div>
