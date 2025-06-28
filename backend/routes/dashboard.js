@@ -212,6 +212,14 @@ router.get("/", authenticateToken, async (req, res) => {
     });
 
     // Gesamtvermögen (Net Worth) berechnen
+    const allTransactionsForNetWorth = await Transaction.findAll({
+      where: {
+        user_id: userId,
+      },
+      attributes: ["id", "amount", "type", "date"],
+      order: [["date", "ASC"]], // Wichtig für die kumulative Berechnung
+    });
+    
     const totalIncomeResult = await Transaction.findOne({
       where: {
         user_id: userId,
@@ -221,7 +229,7 @@ router.get("/", authenticateToken, async (req, res) => {
       raw: true,
     });
     const totalIncome = parseFloat(totalIncomeResult?.total) || 0;
-
+    
     const totalExpensesResult = await Transaction.findOne({
       where: {
         user_id: userId,
@@ -242,8 +250,9 @@ router.get("/", authenticateToken, async (req, res) => {
       goalProgress,
       fixedCosts,
       totalMonthlyFixedCosts,
-      netWorth, // Gesamtvermögen hinzufügen
+      netWorth,
       currentMonth: currentMonth + 1,
+      allTransactionsForNetWorth,
     });
   } catch (error) {
     console.error("Fehler beim Abrufen des Dashboards:", error);
